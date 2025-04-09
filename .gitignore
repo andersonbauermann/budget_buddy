@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+appsettings.Development.json
+.idea/
+Budget_bully.db
+*.db-shm
+*.db-wal
