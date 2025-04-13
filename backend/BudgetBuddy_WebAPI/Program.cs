@@ -1,4 +1,6 @@
 using BudgetBuddy_WebAPI.Application.Interfaces;
+using BudgetBuddy_WebAPI.Application.Services.Base;
+using BudgetBuddy_WebAPI.Application.Services.Expense;
 using BudgetBuddy_WebAPI.Infrastructure.Context;
 using BudgetBuddy_WebAPI.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +17,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IServiceFactory, ServiceFactory>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+builder.Services.AddScoped<CreateExpenseService>();
 
 var app = builder.Build();
 

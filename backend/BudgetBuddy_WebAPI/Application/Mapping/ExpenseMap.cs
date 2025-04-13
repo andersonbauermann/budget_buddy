@@ -12,8 +12,7 @@ public static class ExpenseMap
             CategoryId = input.CategoryId,
             Description = input.Description,
             Value = input.Value,
-            Date = input.Date,
-            Paid = input.Paid,
+            Date = input.Date
         };
     }
 
