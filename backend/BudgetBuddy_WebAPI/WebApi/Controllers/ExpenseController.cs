@@ -7,7 +7,7 @@ namespace BudgetBuddy_WebAPI.WebApi.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class ExpensesController(IServiceFactory serviceFactory) : ControllerBase
+public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
 {
     private readonly IServiceFactory _serviceFactory = serviceFactory;
 

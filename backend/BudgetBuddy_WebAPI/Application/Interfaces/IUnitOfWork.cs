@@ -3,6 +3,7 @@
 public interface IUnitOfWork
 {
     IExpenseRepository ExpenseRepository { get; }
+    ICategoryRepository CategoryRepository { get; }
 
     Task CommitAsync();
 }

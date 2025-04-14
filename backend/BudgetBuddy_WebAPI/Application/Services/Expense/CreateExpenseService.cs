@@ -1,20 +1,43 @@
 ﻿using BudgetBuddy_WebAPI.Application.Interfaces;
+using BudgetBuddy_WebAPI.Application.Mapping;
 using BudgetBuddy_WebAPI.Application.Models;
 using BudgetBuddy_WebAPI.Application.Services.Base;
-using static BudgetBuddy_WebAPI.Application.Services.Expense.CreateExpenseService;
+using FluentResults;
 
 namespace BudgetBuddy_WebAPI.Application.Services.Expense;
 
-public class CreateExpenseService(IUnitOfWork uow, IExpenseRepository expenseRepo) 
-    : ServiceBase<CreateExpenseDto, Result>
+public class CreateExpenseService(IUnitOfWork uow) 
+    : ServiceBase<CreateExpenseDto, Result<string>>
 {
-    public record Result();
-
-    private readonly IExpenseRepository _expenseRepository = expenseRepo;
     private readonly IUnitOfWork _unitOfWork = uow;
 
-    public override Task<Result> Execute(CreateExpenseDto input)
+    public async override Task<Result<string>> Execute(CreateExpenseDto input)
     {
-        throw new NotImplementedException();
+        if (input.Installments >= 0)
+        {
+            return Result.Fail<string>("O número de prestações deve ser maior do que 0");
+        }
+
+        var category = await _unitOfWork.CategoryRepository.GetAsync(category => category.Id == input.CategoryId);
+
+        if (category is null)
+        {
+            return Result.Fail<string>("Não existe nenhuma categoria cadastrada com esse Id.");
+        }
+           
+
+        if (!input.Id.HasValue)
+        {
+            for (var i = 1; i <= input.Installments; i++)
+            {
+                var expense = input.MapToEntity();
+                expense.Date = DateTime.Now.AddMonths(i);
+                _unitOfWork.ExpenseRepository.Create(expense);
+            }
+
+            await _unitOfWork.CommitAsync();
+        }
+
+        return Result.Ok();
     }
 }

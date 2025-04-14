@@ -6,12 +6,12 @@ namespace BudgetBuddy_WebAPI.Infrastructure.Repositories
     public class UnitOfWork(AppDbContext context) : IUnitOfWork
     {
         private IExpenseRepository? _expenseRepository;
-        private ICategoryRepository? _expenseCategoryRepository;
+        private ICategoryRepository? _categoryRepository;
 
         private readonly AppDbContext _context = context;
 
         public IExpenseRepository ExpenseRepository => _expenseRepository ??= new ExpenseRepository(_context);
-        public ICategoryRepository ExpenseCategoryRepository => _expenseCategoryRepository ??= new CategoryRepository(_context);
+        public ICategoryRepository CategoryRepository => _categoryRepository ??= new CategoryRepository(_context);
 
         public Task CommitAsync()
         {

@@ -6,4 +6,8 @@ namespace BudgetBuddy_WebAPI.Infrastructure.Repositories;
 
 public class CategoryRepository(AppDbContext context) : Repository<Category>(context), ICategoryRepository
 {
+    public async Task<IEnumerable<Category>> GetCategoriesAsync()
+    {
+        return await GetAllAsync();
+    }
 }

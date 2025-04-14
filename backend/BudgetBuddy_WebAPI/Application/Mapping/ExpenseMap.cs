@@ -18,6 +18,14 @@ public static class ExpenseMap
 
     public static Expense MapToEntity(this CreateExpenseDto input)
     {
-        throw new NotImplementedException();
+        return new Expense
+        {
+            Id = input.Id ?? default,
+            CategoryId = input.CategoryId,
+            Description = input.Description,
+            Value = input.Value,
+            Date = input.Date,
+            Paid = false,
+        };
     }
 }
