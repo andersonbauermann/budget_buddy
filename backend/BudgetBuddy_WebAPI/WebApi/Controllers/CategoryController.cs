@@ -18,7 +18,7 @@ public class CategoryController(IServiceFactory serviceFactory) : ControllerBase
 
         if (result.IsFailed)
         {
-            return NotFound(result.Errors.FirstOrDefault()?.Message);
+            return NoContent();
         }
 
         return Ok(result.Value);
@@ -30,7 +30,12 @@ public class CategoryController(IServiceFactory serviceFactory) : ControllerBase
         //try
         //{
             var service = _serviceFactory.Create<CreateOrUpdateCategoryService>(Request);
-            await service.Execute(request);
+            var result = await service.Execute(request);
+
+            if (result.IsFailed)
+            {
+                return BadRequest(result.Errors.FirstOrDefault()?.Message);
+            }
 
             return Ok();
         //}
@@ -38,5 +43,19 @@ public class CategoryController(IServiceFactory serviceFactory) : ControllerBase
         //{
 
         //}
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var service = _serviceFactory.Create<DeleteCategoryService>(Request);
+        var result = await service.Execute(new DeleteCategoryService.Input(id));
+
+        if (result.IsFailed)
+        {
+            return NotFound(result.Errors.FirstOrDefault()?.Message);
+        }
+
+        return Ok(result.Value);
     }
 }

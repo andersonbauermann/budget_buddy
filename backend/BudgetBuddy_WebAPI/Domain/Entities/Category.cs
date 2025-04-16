@@ -12,4 +12,5 @@ public class Category
     public string Description { get; set; }
     public CategoryType Type { get; set; }
     public bool IsActive { get; set; }
+    public string Color { get; set; }
 }

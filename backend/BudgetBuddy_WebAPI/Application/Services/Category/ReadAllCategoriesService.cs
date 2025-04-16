@@ -22,7 +22,9 @@ public class ReadAllCategoriesService(IUnitOfWork uof)
             return Result.Fail<IEnumerable<CategoryDto>>("Nenhuma categoria encontrada.");
         }
 
-        var mappedCategories = categories.Select(category => category.MapToDto());
+        var mappedCategories = categories
+            .Where(category => category.IsActive)
+            .Select(category => category.MapToDto());
 
         return Result.Ok(mappedCategories);
     }

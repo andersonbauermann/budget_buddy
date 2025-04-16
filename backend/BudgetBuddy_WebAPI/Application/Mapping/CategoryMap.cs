@@ -12,7 +12,8 @@ public static class CategoryMap
             Id = dto.Id ?? default,
             Description = dto.Description,
             Type = dto.Type,
-            IsActive = dto.IsActive
+            IsActive = dto.IsActive,
+            Color = dto.Color
         };
     }
 
@@ -23,7 +24,8 @@ public static class CategoryMap
             Id = category.Id,
             Description = category.Description,
             Type = category.Type,
-            IsActive = category.IsActive
+            IsActive = category.IsActive,
+            Color = category.Color  
         };
     }
 }

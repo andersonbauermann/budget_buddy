@@ -9,6 +9,11 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
 {
     protected readonly AppDbContext _context = context;
 
+    public async Task<bool> ExistsAsync(Expression<Func<T, bool>> precicate)
+    {
+        return await _context.Set<T>().AnyAsync(precicate);
+    }
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         return await _context.Set<T>().AsNoTracking().ToListAsync();

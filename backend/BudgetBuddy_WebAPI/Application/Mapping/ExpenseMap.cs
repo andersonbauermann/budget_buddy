@@ -5,9 +5,9 @@ namespace BudgetBuddy_WebAPI.Application.Mapping;
 
 public static class ExpenseMap
 {
-    public static CreateExpenseDto MapToDto(this Expense input)
+    public static ExpenseDto MapToDto(this Expense input)
     {
-        return new CreateExpenseDto
+        return new ExpenseDto
         {
             CategoryId = input.CategoryId,
             Description = input.Description,
@@ -16,7 +16,7 @@ public static class ExpenseMap
         };
     }
 
-    public static Expense MapToEntity(this CreateExpenseDto input)
+    public static Expense MapToEntity(this ExpenseDto input)
     {
         return new Expense
         {

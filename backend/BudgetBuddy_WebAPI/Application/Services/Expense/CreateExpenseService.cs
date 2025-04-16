@@ -7,13 +7,13 @@ using FluentResults;
 namespace BudgetBuddy_WebAPI.Application.Services.Expense;
 
 public class CreateExpenseService(IUnitOfWork uow) 
-    : ServiceBase<CreateExpenseDto, Result<string>>
+    : ServiceBase<ExpenseDto, Result<string>>
 {
     private readonly IUnitOfWork _unitOfWork = uow;
 
-    public async override Task<Result<string>> Execute(CreateExpenseDto input)
+    public async override Task<Result<string>> Execute(ExpenseDto input)
     {
-        if (input.Installments >= 0)
+        if (input.Installments <= 0)
         {
             return Result.Fail<string>("O número de prestações deve ser maior do que 0");
         }
@@ -25,7 +25,6 @@ public class CreateExpenseService(IUnitOfWork uow)
             return Result.Fail<string>("Não existe nenhuma categoria cadastrada com esse Id.");
         }
            
-
         if (!input.Id.HasValue)
         {
             for (var i = 1; i <= input.Installments; i++)

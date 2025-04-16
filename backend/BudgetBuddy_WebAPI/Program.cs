@@ -22,7 +22,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
-builder.Services.AddScoped<CreateExpenseService>();
+//builder.Services.AddScoped<CreateExpenseService>();
 
 var app = builder.Build();
 
@@ -33,9 +33,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(option => option.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin());
 
 app.MapControllers();
 

@@ -12,9 +12,18 @@ namespace BudgetBuddy_WebAPI.Application.Services.Category
 
         public async override Task<Result<string>> Execute(CategoryDto input)
         {
-            // TODO antes de inativar, verificar se existe algum Expense cadastrado com essa category, bloquear inativação
+            if (!input.IsActive)
+            {
+                var hasAnyExpense = await _unitOfWork.ExpenseRepository.ExistsAsync(e => e.CategoryId == input.Id);
+
+                if (hasAnyExpense)
+                {
+                    return Result.Fail("Não é possível inativar esta categoria, pois existem despesas vinculadas a ela.");
+                }
+            }
+
             var category = input.MapToEntity();
-            if (input.Id.HasValue)
+            if (input.Id is > 0)
             {
                 _unitOfWork.CategoryRepository.Update(category);
             } 
