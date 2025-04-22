@@ -4,5 +4,7 @@ using BudgetBuddy_WebAPI.Infrastructure.Context;
 
 namespace BudgetBuddy_WebAPI.Infrastructure.Repositories;
 
-public class ExpenseRepository(AppDbContext context) : Repository<Expense>(context), IExpenseRepository
-{ }
+public class ExpenseInstallmenRepository(AppDbContext context) 
+    : Repository<ExpenseInstallment>(context), IExpenseInstallmentRepository
+{
+}

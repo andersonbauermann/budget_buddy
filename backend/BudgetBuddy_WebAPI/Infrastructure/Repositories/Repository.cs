@@ -14,9 +14,17 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
         return await _context.Set<T>().AnyAsync(precicate);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
     {
-        return await _context.Set<T>().AsNoTracking().ToListAsync();
+        IQueryable<T> query = _context.Set<T>().AsNoTracking();
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.ToListAsync();
+
     }
 
     public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)

@@ -2,5 +2,6 @@
 
 namespace BudgetBuddy_WebAPI.Application.Interfaces;
 
-public interface IExpenseRepository : IRepository<Expense>
-{ }
+public interface IExpenseInstallmentRepository : IRepository<ExpenseInstallment>
+{
+}

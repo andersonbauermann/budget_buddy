@@ -8,9 +8,7 @@ public class Expense
     public int CategoryId { get; set; }
     public string Description { get; set; }
     public decimal Value { get; set; }
-    public DateTime Date { get; set; }
-    public bool Paid { get; set; }
 
     [JsonIgnore]
-    public Category Category { get; set; }
+    public virtual Category? Category { get; set; }
 }

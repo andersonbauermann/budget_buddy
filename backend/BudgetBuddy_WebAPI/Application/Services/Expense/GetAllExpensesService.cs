@@ -1,0 +1,25 @@
+﻿using BudgetBuddy_WebAPI.Application.Interfaces;
+using BudgetBuddy_WebAPI.Application.Mapping;
+using BudgetBuddy_WebAPI.Application.Models;
+using BudgetBuddy_WebAPI.Application.Services.Base;
+using FluentResults;
+
+namespace BudgetBuddy_WebAPI.Application.Services.Expense
+{
+    public class GetAllExpensesService(IUnitOfWork uof) : ServiceBase<GetAllExpensesService.Input, Result<IEnumerable<ExpenseDto>>>
+    { 
+        public record Input();
+
+        private readonly IUnitOfWork _unitOfWork = uof;
+
+        public async override Task<Result<IEnumerable<ExpenseDto>>> Execute(Input input)
+        {
+            var expenseInstallments = await _unitOfWork.ExpenseInstallmentRepository
+                .GetAllAsync(installment => installment.Expense);
+
+            return Result.Ok(expenseInstallments
+                .Select(installment 
+                    => installment.Expense.MapToDto(installment.Date, installment.Id)));
+        }
+    }
+}

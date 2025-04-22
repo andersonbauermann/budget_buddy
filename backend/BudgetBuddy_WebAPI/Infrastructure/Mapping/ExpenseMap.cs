@@ -24,12 +24,6 @@ public class ExpenseMap : IEntityTypeConfiguration<Expense>
         builder.Property(e => e.Value)
                .HasColumnType("decimal(18,2)");
 
-        builder.Property(e => e.Date)
-               .IsRequired();
-
-        builder.Property(e => e.Paid)
-          .IsRequired();
-
         builder.ToTable("Expenses");
     }
 }

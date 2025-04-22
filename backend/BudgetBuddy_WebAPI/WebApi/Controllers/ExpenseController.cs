@@ -20,17 +20,12 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
         return Ok();
     }
 
-    [HttpGet("filter")]
-    public async Task<IActionResult> GetFilteredByDate(int month, int year)
+    [HttpGet]
+    public async Task<IActionResult> GetAllExpeses()
     {
-        var service = _serviceFactory.Create<FilterExpenseByDateService>(Request);
-        var input = new FilterExpenseByDateService.Input(month, year);
+        var service = _serviceFactory.Create<GetAllExpensesService>(Request);
+        var input = new GetAllExpensesService.Input();
         var result = await service.Execute(input);
-        
-        if (result.IsFailed)
-        {
-            return BadRequest(result.Errors.FirstOrDefault()?.Message);
-        }
 
         return Ok(result.Value);
     }

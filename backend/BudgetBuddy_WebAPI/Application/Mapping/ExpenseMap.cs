@@ -5,14 +5,15 @@ namespace BudgetBuddy_WebAPI.Application.Mapping;
 
 public static class ExpenseMap
 {
-    public static ExpenseDto MapToDto(this Expense input)
+    public static ExpenseDto MapToDto(this Expense input, DateTime date, int? overrideId = null)
     {
         return new ExpenseDto
         {
+            Id = overrideId ?? input.Id,
             CategoryId = input.CategoryId,
             Description = input.Description,
             Value = input.Value,
-            Date = input.Date
+            Date = date
         };
     }
 
@@ -23,9 +24,7 @@ public static class ExpenseMap
             Id = input.Id ?? default,
             CategoryId = input.CategoryId,
             Description = input.Description,
-            Value = input.Value,
-            Date = input.Date,
-            Paid = false,
+            Value = input.Value
         };
     }
 }

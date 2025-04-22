@@ -7,7 +7,8 @@ namespace BudgetBuddy_WebAPI.Infrastructure.Context;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Expense> Expenses { get; set; }
-    public DbSet<Category> ExpenseCategories { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<ExpenseInstallment> ExpensesInstallments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -15,5 +16,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
        
         builder.ApplyConfiguration(new ExpenseMap());
         builder.ApplyConfiguration(new CategoryMap());
+        builder.ApplyConfiguration(new ExpenseInstallmentMap());
     }
 }
