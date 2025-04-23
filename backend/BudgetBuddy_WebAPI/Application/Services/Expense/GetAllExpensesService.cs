@@ -6,20 +6,18 @@ using FluentResults;
 
 namespace BudgetBuddy_WebAPI.Application.Services.Expense
 {
-    public class GetAllExpensesService(IUnitOfWork uof) : ServiceBase<GetAllExpensesService.Input, Result<IEnumerable<ExpenseDto>>>
+    public class GetAllExpensesService(IUnitOfWork uof) : ServiceBase<GetAllExpensesService.Input, Result<IEnumerable<ExpenseWithInstallmentDto>>>
     { 
         public record Input();
 
         private readonly IUnitOfWork _unitOfWork = uof;
 
-        public async override Task<Result<IEnumerable<ExpenseDto>>> Execute(Input input)
+        public async override Task<Result<IEnumerable<ExpenseWithInstallmentDto>>> Execute(Input input)
         {
             var expenseInstallments = await _unitOfWork.ExpenseInstallmentRepository
                 .GetAllAsync(installment => installment.Expense);
 
-            return Result.Ok(expenseInstallments
-                .Select(installment 
-                    => installment.Expense.MapToDto(installment.Date, installment.Id)));
+            return Result.Ok(expenseInstallments.ToFlatDto());
         }
     }
 }

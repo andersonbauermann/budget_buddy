@@ -3,7 +3,7 @@ using BudgetBuddy_WebAPI.Domain.Entities;
 
 namespace BudgetBuddy_WebAPI.Application.Mapping;
 
-public static class CategoryMap
+public static class CategoryExtensions
 {
     public static Category MapToEntity(this CategoryDto dto)
     {

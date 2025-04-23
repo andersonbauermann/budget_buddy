@@ -27,9 +27,16 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
 
     }
 
-    public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate)
+    public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
     {
-        return await _context.Set<T>().FirstOrDefaultAsync(predicate);
+        IQueryable<T> query = _context.Set<T>();
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.FirstOrDefaultAsync(predicate);
     }
 
     public T Create(T entity)

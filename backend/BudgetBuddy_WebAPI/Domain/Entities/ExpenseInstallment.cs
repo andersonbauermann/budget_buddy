@@ -10,6 +10,6 @@ namespace BudgetBuddy_WebAPI.Domain.Entities
         public bool Paid { get; set; }
 
         [JsonIgnore]
-        public Expense Expense { get; set; }
+        public Expense Expense { get; set; } = new Expense();
     }
 }

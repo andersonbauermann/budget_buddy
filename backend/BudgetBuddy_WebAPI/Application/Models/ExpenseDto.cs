@@ -1,6 +1,6 @@
 ﻿namespace BudgetBuddy_WebAPI.Application.Models;
 
-public class ExpenseDto
+public record ExpenseDto
 {
     public int? Id { get; set; }
     public int CategoryId { get; set; }

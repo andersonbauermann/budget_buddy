@@ -20,7 +20,17 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
         return Ok();
     }
 
-    [HttpGet]
+    [HttpPut("{id:int}")] 
+    public async Task<IActionResult> Update(int id, ExpenseWithInstallmentDto request)
+    {
+        var service = _serviceFactory.Create<UpdateExpenseService>(Request);
+        request = request with { Id = id };
+        await service.Execute(request);
+
+        return Ok();
+    }
+
+    [HttpGet("allExpenses")]
     public async Task<IActionResult> GetAllExpeses()
     {
         var service = _serviceFactory.Create<GetAllExpensesService>(Request);
