@@ -5,10 +5,8 @@ using FluentResults;
 
 namespace BudgetBuddy_WebAPI.Application.Services.Expense;
 
-public class UpdateExpenseService(IUnitOfWork uof) : ServiceBase<ExpenseWithInstallmentDto, Result<string>>
+public class UpdateExpenseService(IUnitOfWork uow) : ServiceBase<ExpenseWithInstallmentDto, Result<string>>(uow)
 {
-    private readonly IUnitOfWork _unitOfWork = uof;
-
     public override async Task<Result<string>> Execute(ExpenseWithInstallmentDto input)
     {
         var expenseInstallment = await _unitOfWork.ExpenseInstallmentRepository

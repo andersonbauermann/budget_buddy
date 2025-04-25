@@ -6,10 +6,8 @@ using FluentResults;
 
 namespace BudgetBuddy_WebAPI.Application.Services.Category
 {
-    public class CreateOrUpdateCategoryService(IUnitOfWork uow) : ServiceBase<CategoryDto, Result<string>>
+    public class CreateOrUpdateCategoryService(IUnitOfWork uow) : ServiceBase<CategoryDto, Result<string>>(uow)
     {
-        private readonly IUnitOfWork _unitOfWork = uow;
-
         public async override Task<Result<string>> Execute(CategoryDto input)
         {
             if (!input.IsActive)

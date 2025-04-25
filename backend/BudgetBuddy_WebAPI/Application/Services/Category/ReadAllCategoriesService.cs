@@ -6,12 +6,10 @@ using FluentResults;
 
 namespace BudgetBuddy_WebAPI.Application.Services.Category;
 
-public class ReadAllCategoriesService(IUnitOfWork uof)
-    : ServiceBase<ReadAllCategoriesService.Input, Result<IEnumerable<CategoryDto>>>
+public class ReadAllCategoriesService(IUnitOfWork uow)
+    : ServiceBase<ReadAllCategoriesService.Input, Result<IEnumerable<CategoryDto>>>(uow)
 {
     public record Input();
-
-    private readonly IUnitOfWork _unitOfWork = uof;
 
     public async override Task<Result<IEnumerable<CategoryDto>>> Execute(Input input)
     {

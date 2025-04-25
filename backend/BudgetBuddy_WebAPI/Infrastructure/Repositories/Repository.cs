@@ -1,4 +1,5 @@
 ﻿using BudgetBuddy_WebAPI.Application.Interfaces;
+using BudgetBuddy_WebAPI.Domain;
 using BudgetBuddy_WebAPI.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -14,9 +15,14 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
         return await _context.Set<T>().AnyAsync(precicate);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
+    public async Task<IEnumerable<T>> GetAllAsync(bool onlyActives = false, params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _context.Set<T>().AsNoTracking();
+
+        if (onlyActives && typeof(IActivable).IsAssignableFrom(typeof(T)))
+        {
+            query = query.Where(e => ((IActivable)e).IsActive);
+        }
 
         foreach (var include in includes)
         {
@@ -24,7 +30,6 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : clas
         }
 
         return await query.ToListAsync();
-
     }
 
     public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)

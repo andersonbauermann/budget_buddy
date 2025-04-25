@@ -13,8 +13,13 @@ public class ExpenseInstallmentMap : IEntityTypeConfiguration<ExpenseInstallment
         builder.Property(e => e.Date)
             .IsRequired();
 
-        builder.Property(e => e.Date)
-            .IsRequired();
+        builder.Property(e => e.Paid)
+            .IsRequired()
+            .HasDefaultValue(false);
+
+        builder.Property(e => e.IsActive)
+            .IsRequired()
+            .HasDefaultValue(true);
 
         builder.HasOne(e => e.Expense)
             .WithMany()

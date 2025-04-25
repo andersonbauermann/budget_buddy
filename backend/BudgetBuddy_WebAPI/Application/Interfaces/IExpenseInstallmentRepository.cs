@@ -4,4 +4,5 @@ namespace BudgetBuddy_WebAPI.Application.Interfaces;
 
 public interface IExpenseInstallmentRepository : IRepository<ExpenseInstallment>
 {
+    Task DeleteRangeAsync(List<int> ids);
 }

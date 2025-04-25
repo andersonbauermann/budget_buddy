@@ -6,11 +6,9 @@ using FluentResults;
 
 namespace BudgetBuddy_WebAPI.Application.Services.Category
 {
-    public class DeleteCategoryService(IUnitOfWork uof) : ServiceBase<DeleteCategoryService.Input, Result<CategoryDto>>
+    public class DeleteCategoryService(IUnitOfWork uow) : ServiceBase<DeleteCategoryService.Input, Result<CategoryDto>>(uow)
     {
         public record Input(int Id);
-
-        private readonly IUnitOfWork _unitOfWork = uof;
 
         public async override Task<Result<CategoryDto>> Execute(Input input)
         {

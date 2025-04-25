@@ -8,10 +8,8 @@ using FluentResults;
 namespace BudgetBuddy_WebAPI.Application.Services.Expense;
 
 public class CreateExpenseService(IUnitOfWork uow) 
-    : ServiceBase<ExpenseDto, Result<string>>
+    : ServiceBase<ExpenseDto, Result<string>>(uow)
 {
-    private readonly IUnitOfWork _unitOfWork = uow;
-
     public async override Task<Result<string>> Execute(ExpenseDto input)
     {
         if (input.Installments <= 0)

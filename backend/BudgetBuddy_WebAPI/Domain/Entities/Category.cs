@@ -1,6 +1,6 @@
 ﻿namespace BudgetBuddy_WebAPI.Domain.Entities;
 
-public class Category
+public class Category : IActivable
 {
     public enum CategoryType
     {

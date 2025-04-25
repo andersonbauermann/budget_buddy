@@ -30,6 +30,15 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
         return Ok();
     }
 
+    [HttpDelete]
+    public async Task<IActionResult> Delete([FromBody] DeleteExpenseService.Input idsToDelete)
+    {
+        var service = _serviceFactory.Create<DeleteExpenseService>(Request);
+        await service.Execute(idsToDelete);
+
+        return Ok();
+    }
+
     [HttpGet("allExpenses")]
     public async Task<IActionResult> GetAllExpeses()
     {
