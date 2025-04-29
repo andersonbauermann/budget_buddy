@@ -30,10 +30,10 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
         return Ok();
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeleteExpenseService.Input idsToDelete)
+    [HttpPut("inactive")]
+    public async Task<IActionResult> InactiveExpense([FromBody] InactiveExpenseService.Input idsToDelete)
     {
-        var service = _serviceFactory.Create<DeleteExpenseService>(Request);
+        var service = _serviceFactory.Create<InactiveExpenseService>(Request);
         await service.Execute(idsToDelete);
 
         return Ok();
@@ -45,6 +45,20 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
         var service = _serviceFactory.Create<GetAllExpensesService>(Request);
         var input = new GetAllExpensesService.Input();
         var result = await service.Execute(input);
+
+        return Ok(result.Value);
+    }
+
+    [HttpPatch("{id:int}/toggle-paid")]
+    public async Task<IActionResult> ToggleExpensePaid(int id, [FromBody] bool paid)
+    {
+        var service = _serviceFactory.Create<ToggleExpensePaidService>(Request);
+        var result = await service.Execute(new ToggleExpensePaidService.Input(id, paid));
+
+        if (result.IsFailed)
+        {
+            return NotFound(result.Errors.FirstOrDefault()?.Message);
+        }
 
         return Ok(result.Value);
     }

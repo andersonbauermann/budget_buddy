@@ -45,11 +45,11 @@ public class CategoryController(IServiceFactory serviceFactory) : ControllerBase
         //}
     }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    [HttpPut("inactive/{id}")]
+    public async Task<IActionResult> InactiveCategory(int id)
     {
-        var service = _serviceFactory.Create<DeleteCategoryService>(Request);
-        var result = await service.Execute(new DeleteCategoryService.Input(id));
+        var service = _serviceFactory.Create<InactiveCategoryService>(Request);
+        var result = await service.Execute(new InactiveCategoryService.Input(id));
 
         if (result.IsFailed)
         {

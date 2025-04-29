@@ -9,7 +9,7 @@ namespace BudgetBuddy_WebAPI.Infrastructure.Repositories;
 public class ExpenseInstallmenRepository(AppDbContext context)
     : Repository<ExpenseInstallment>(context), IExpenseInstallmentRepository
 {
-    public async Task DeleteRangeAsync(List<int> ids)
+    public async Task InactiveRangeAsync(List<int> ids)
     {
         if (ids.IsNullOrEmpty())
             throw new ArgumentException("A lista de IDs não pode estar vazia.");

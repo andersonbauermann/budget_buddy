@@ -6,7 +6,7 @@ using FluentResults;
 
 namespace BudgetBuddy_WebAPI.Application.Services.Category
 {
-    public class DeleteCategoryService(IUnitOfWork uow) : ServiceBase<DeleteCategoryService.Input, Result<CategoryDto>>(uow)
+    public class InactiveCategoryService(IUnitOfWork uow) : ServiceBase<InactiveCategoryService.Input, Result<CategoryDto>>(uow)
     {
         public record Input(int Id);
 
