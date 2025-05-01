@@ -404,3 +404,8 @@ Budget_buddy.db
 *.db
 *.db-shm
 *.db-wal
+
+*.lockb
+package-lock.json
+tsconfig.node.json
+*.env
