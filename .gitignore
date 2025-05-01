@@ -400,5 +400,7 @@ FodyWeavers.xsd
 appsettings.Development.json
 .idea/
 Budget_bully.db
+Budget_buddy.db
+*.db
 *.db-shm
 *.db-wal
