@@ -31,7 +31,7 @@ const Categories = () => {
     }
   };
 
-  const filteredCategories = categories.filter(
+  const filteredCategories = categories?.filter(
     (category) => category.type === activeTab
   );
 

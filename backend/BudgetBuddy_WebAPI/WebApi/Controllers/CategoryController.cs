@@ -18,7 +18,7 @@ public class CategoryController(IServiceFactory serviceFactory) : ControllerBase
 
         if (result.IsFailed)
         {
-            return NoContent();
+            return Ok();
         }
 
         return Ok(result.Value);
@@ -27,22 +27,15 @@ public class CategoryController(IServiceFactory serviceFactory) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateOrUpdate(CategoryDto request)
     {
-        //try
-        //{
-            var service = _serviceFactory.Create<CreateOrUpdateCategoryService>(Request);
-            var result = await service.Execute(request);
+        var service = _serviceFactory.Create<CreateOrUpdateCategoryService>(Request);
+        var result = await service.Execute(request);
 
-            if (result.IsFailed)
-            {
-                return BadRequest(result.Errors.FirstOrDefault()?.Message);
-            }
+        if (result.IsFailed)
+        {
+            return BadRequest(result.Errors.FirstOrDefault()?.Message);
+        }
 
-            return Ok();
-        //}
-        //catch (Exception ex)
-        //{
-
-        //}
+        return NoContent();
     }
 
     [HttpPut("inactive/{id}")]

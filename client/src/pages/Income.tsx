@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState } from "react";
 import { useFinance } from "../context/FinanceContext";
@@ -33,14 +34,14 @@ const Income = () => {
     setIsDialogOpen(true);
   };
 
-  const handleDeleteIncome = (id: string) => {
+  const handleDeleteIncome = (id: number) => {
     if (window.confirm("Tem certeza que deseja excluir esta receita?")) {
       deleteIncome(id);
       toast.success("Receita excluída com sucesso");
     }
   };
 
-  const toggleIncomeReceived = (id: string, received: boolean) => {
+  const toggleIncomeReceived = (id: number, received: boolean) => {
     const income = incomes.find(inc => inc.id === id);
     if (income) {
       updateIncome({ ...income, received });
@@ -156,11 +157,11 @@ const Income = () => {
                             color: category?.color,
                           }}
                         >
-                          {category?.name || "Desconhecido"}
+                          {category?.description || "Desconhecido"}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm income-text">
-                        {formatCurrency(income.amount)}
+                        {formatCurrency(income.value)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {formatDate(income.date)}

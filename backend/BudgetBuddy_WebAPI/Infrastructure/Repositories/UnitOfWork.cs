@@ -8,6 +8,7 @@ namespace BudgetBuddy_WebAPI.Infrastructure.Repositories
         private IExpenseRepository? _expenseRepository;
         private ICategoryRepository? _categoryRepository;
         private IExpenseInstallmentRepository? _expenseInstallmentRepository;
+        private IIncomeRepository? _incomeRepository;
 
         private readonly AppDbContext _context = context;
 
@@ -17,6 +18,8 @@ namespace BudgetBuddy_WebAPI.Infrastructure.Repositories
             => _categoryRepository ??= new CategoryRepository(_context);
         public IExpenseInstallmentRepository ExpenseInstallmentRepository 
             => _expenseInstallmentRepository ??= new ExpenseInstallmenRepository(_context);
+        public IIncomeRepository IncomeRepository
+            => _incomeRepository ??= new IncomeRepository(_context);
 
         public Task CommitAsync()
         {

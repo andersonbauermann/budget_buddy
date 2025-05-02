@@ -53,7 +53,7 @@ public class UpdateExpenseService(IUnitOfWork uow) : ServiceBase<ExpenseWithInst
             await _unitOfWork.CommitAsync();
         }
 
-        return Result.Ok<string>("Despesa atualizada com sucesso.");
+        return Result.Ok("Despesa atualizada com sucesso.");
     }
 
 }

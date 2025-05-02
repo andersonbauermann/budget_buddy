@@ -4,19 +4,18 @@ using BudgetBuddy_WebAPI.Application.Models;
 using BudgetBuddy_WebAPI.Application.Services.Base;
 using FluentResults;
 
-namespace BudgetBuddy_WebAPI.Application.Services.Expense
-{
-    public class GetAllExpensesService(IUnitOfWork uof) 
-        : ServiceBase<GetAllExpensesService.Input, Result<IEnumerable<ExpenseWithInstallmentDto>>>(uof)
-    { 
-        public record Input();
+namespace BudgetBuddy_WebAPI.Application.Services.Expense;
 
-        public async override Task<Result<IEnumerable<ExpenseWithInstallmentDto>>> Execute(Input input)
-        {
-            var expenseInstallments = await _unitOfWork.ExpenseInstallmentRepository
-                .GetAllAsync(onlyActives: true, installment => installment.Expense);
+public class GetAllExpensesService(IUnitOfWork uof) 
+    : ServiceBase<GetAllExpensesService.Input, Result<IEnumerable<ExpenseWithInstallmentDto>>>(uof)
+{ 
+    public record Input();
 
-            return Result.Ok(expenseInstallments.ToFlatDto());
-        }
+    public async override Task<Result<IEnumerable<ExpenseWithInstallmentDto>>> Execute(Input input)
+    {
+        var expenseInstallments = await _unitOfWork.ExpenseInstallmentRepository
+            .GetAllAsync(onlyActives: true, installment => installment.Expense);
+
+        return Result.Ok(expenseInstallments.ToFlatDto());
     }
 }

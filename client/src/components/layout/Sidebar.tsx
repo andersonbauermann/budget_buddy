@@ -7,7 +7,7 @@ const menuItems = [
   // { path: "/", label: "Dashboard", icon: <Home className="h-5 w-5" /> },
   { path: "/categories", label: "Categorias", icon: <PieChart className="h-5 w-5" /> },
   { path: "/expenses", label: "Despesas", icon: <Wallet className="h-5 w-5" /> },
-  // { path: "/income", label: "Receitas", icon: <PlusCircle className="h-5 w-5" /> },
+  { path: "/income", label: "Receitas", icon: <PlusCircle className="h-5 w-5" /> },
   // { path: "/expense-list", label: "Listagem", icon: <ListChecks className="h-5 w-5" /> },
 ];
 

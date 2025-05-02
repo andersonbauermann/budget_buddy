@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Income } from "../../types/finance";
+import { CategoryType, Income } from "../../types/finance";
 import { useFinance } from "../../context/FinanceContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -13,14 +13,14 @@ interface IncomeFormProps {
 const IncomeForm: React.FC<IncomeFormProps> = ({ income, onClose }) => {
   const { categories, addIncome, updateIncome } = useFinance();
   const [description, setDescription] = useState(income?.description || "");
-  const [amount, setAmount] = useState(income?.amount ? income.amount.toString() : "");
+  const [amount, setAmount] = useState(income?.value ? income.value.toString() : "");
   const [date, setDate] = useState(income?.date 
     ? new Date(income.date).toISOString().split("T")[0] 
     : new Date().toISOString().split("T")[0]);
-  const [categoryId, setCategoryId] = useState(income?.categoryId || "");
+  const [categoryId, setCategoryId] = useState(income?.categoryId);
   const [received, setReceived] = useState(income?.received || false);
 
-  const incomeCategories = categories.filter(c => c.type === "income");
+  const incomeCategories = categories.filter(c => c.type === CategoryType.Income);
 
   useEffect(() => {
     if (incomeCategories.length > 0 && !categoryId) {
@@ -48,7 +48,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ income, onClose }) => {
     
     const incomeData = {
       description,
-      amount: Number(amount),
+      value: Number(amount),
       date: new Date(date).toISOString(),
       categoryId,
       received,
@@ -119,13 +119,13 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ income, onClose }) => {
           id="category"
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border"
           value={categoryId}
-          onChange={(e) => setCategoryId(e.target.value)}
+          onChange={(e) => setCategoryId(e.target.value ? Number(e.target.value) : 0)}
           required
         >
           <option value="" disabled>Selecione uma categoria</option>
           {incomeCategories.map((category) => (
             <option key={category.id} value={category.id}>
-              {category.name}
+              {category.description}
             </option>
           ))}
         </select>

@@ -15,9 +15,14 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
     public async Task<IActionResult> Create(ExpenseDto request)
     {
         var service = _serviceFactory.Create<CreateExpenseService>(Request);
-        await service.Execute(request);
+        var result = await service.Execute(request);
 
-        return Ok();
+        if (result.IsFailed)
+        {
+            return BadRequest(result.Errors.FirstOrDefault()?.Message);
+        }
+
+        return Created();
     }
 
     [HttpPut("{id:int}")] 
@@ -27,7 +32,7 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
         request = request with { Id = id };
         await service.Execute(request);
 
-        return Ok();
+        return NoContent();
     }
 
     [HttpPut("inactive")]
@@ -36,7 +41,7 @@ public class ExpenseController(IServiceFactory serviceFactory) : ControllerBase
         var service = _serviceFactory.Create<InactiveExpenseService>(Request);
         await service.Execute(idsToDelete);
 
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet("allExpenses")]

@@ -13,17 +13,12 @@ public class ReadAllCategoriesService(IUnitOfWork uow)
 
     public async override Task<Result<IEnumerable<CategoryDto>>> Execute(Input input)
     {
-        var categories = await _unitOfWork.CategoryRepository.GetAllAsync();
-
-        if (categories is null || !categories.Any())
-        {
-            return Result.Fail<IEnumerable<CategoryDto>>("Nenhuma categoria encontrada.");
-        }
+        var categories = await _unitOfWork.CategoryRepository.GetAllAsync() ?? [];
 
         var mappedCategories = categories
             .Where(category => category.IsActive)
             .Select(category => category.MapToDto());
 
-        return Result.Ok(mappedCategories);
+        return Result.Ok(mappedCategories.Any() ? mappedCategories : []);
     }
 }
