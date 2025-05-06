@@ -9,7 +9,4 @@ export const incomeService = {
     api.post<Income>('/income', income),
   update: (id: number, income: Omit<Income, "id">) => 
     api.put<Income>(`/income/${id}`, income),
-  delete: (id: number) => api.delete(`/incomes/${id}`),
-  toggleReceived: (id: number, received: boolean) => 
-    api.patch<Income>(`/income/${id}/toggle-received`, { received }),
 };

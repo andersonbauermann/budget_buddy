@@ -1,17 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState } from "react";
 import { useFinance } from "../../context/FinanceContext";
 import { Check } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import ExpenseForm from "../forms/ExpenseForm";
+import { CategoryType } from "@/types/finance";
 
 interface YearlyExpenseTableProps {
   year: number;
 }
 
 const YearlyExpenseTable: React.FC<YearlyExpenseTableProps> = ({ year }) => {
-  const { expenses, categories, toggleExpensePaid, getCategoryById, deleteExpense } = useFinance();
-  const [selectedExpense, setSelectedExpense] = useState<string | null>(null);
+  const { expenses, categories, toggleExpensePaid } = useFinance();
+  const [selectedExpense, setSelectedExpense] = useState<number | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const monthNames = [
@@ -19,34 +21,39 @@ const YearlyExpenseTable: React.FC<YearlyExpenseTableProps> = ({ year }) => {
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
   ];
 
-  // Filtrar despesas do ano atual
   const yearExpenses = expenses.filter(
     (expense) => new Date(expense.date).getFullYear() === year
   );
-
-  // Agrupar categorias de despesas
-  const expenseCategories = categories.filter((cat) => cat.type === "expense");
-
-  // Preparar dados para a tabela
-  const tableData = expenseCategories.map((category) => {
+  
+  const expenseCategories = categories.filter((cat) => cat.type === CategoryType.Expense);
+  
+  const tableData = expenseCategories
+  .map((category) => {
     const monthlySums = Array(12).fill(0);
     const monthlyExpenses = Array(12).fill(null).map(() => []);
 
     yearExpenses.forEach((expense) => {
       if (expense.categoryId === category.id) {
         const month = new Date(expense.date).getMonth();
-        monthlySums[month] += expense.amount;
+        monthlySums[month] += expense.value;
         monthlyExpenses[month].push(expense);
       }
     });
 
-    return {
-      category,
-      monthlySums,
-      monthlyExpenses,
-      yearTotal: monthlySums.reduce((sum, val) => sum + val, 0),
-    };
-  });
+    const yearTotal = monthlySums.reduce((sum, val) => sum + val, 0);
+
+    if (yearTotal > 0) {
+      return {
+        category,
+        monthlySums,
+        monthlyExpenses,
+        yearTotal,
+      };
+    }
+
+    return null;
+  })
+  .filter((data) => data !== null); 
 
   const handleExpenseClick = (expense: any) => {
     setSelectedExpense(expense.id);
@@ -92,7 +99,7 @@ const YearlyExpenseTable: React.FC<YearlyExpenseTableProps> = ({ year }) => {
                     color: row.category.color,
                   }}
                 >
-                  {row.category.name}
+                  {row.category.description}
                 </div>
               </td>
               {row.monthlySums.map((sum, monthIndex) => (
@@ -100,8 +107,7 @@ const YearlyExpenseTable: React.FC<YearlyExpenseTableProps> = ({ year }) => {
                   <div className="text-sm">
                     {sum > 0 ? (
                       <div className="cursor-pointer" onClick={() => {
-                        // Implementar visualização detalhada das despesas do mês
-                        console.log(`Despesas de ${monthNames[monthIndex]} para ${row.category.name}:`, row.monthlyExpenses[monthIndex]);
+                        console.log(`Despesas de ${monthNames[monthIndex]} para ${row.category.description}:`, row.monthlyExpenses[monthIndex]);
                       }}>
                         {formatCurrency(sum)}
                       </div>

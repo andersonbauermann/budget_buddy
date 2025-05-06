@@ -8,7 +8,7 @@ import IncomeForm from "../components/forms/IncomeForm";
 import { toast } from "sonner";
 
 const Income = () => {
-  const { incomes, updateIncome, deleteIncome, currentYear, setCurrentYear, getCategoryById } = useFinance();
+  const { incomes, updateIncome, currentYear, setCurrentYear, getCategoryById } = useFinance();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editIncome, setEditIncome] = useState<any>(null);
   const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth());

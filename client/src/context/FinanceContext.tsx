@@ -28,7 +28,6 @@ interface FinanceContextType {
   toggleExpensePaid: (id: number, paid: boolean) => void;
   addIncome: (income: Omit<Income, "id">) => void;
   updateIncome: (income: Income) => void;
-  deleteIncome: (id: number) => void;
   getCategoryById: (id: number) => Category | undefined;
   getExpensesByMonth: (year: number, month: number) => Expense[];
   getIncomesByMonth: (year: number, month: number) => Income[];
@@ -189,17 +188,6 @@ export const FinanceProvider: React.FC<{ children: React.ReactNode }> = ({ child
     },
   });
 
-  const deleteIncomeMutation = useMutation({
-    mutationFn: (id: number) => incomeService.delete(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['incomes'] });
-      toast.success("Receita excluída com sucesso");
-    },
-    onError: () => {
-      toast.error("Erro ao excluir receita");
-    },
-  });
-
   const calculateYearlyData = () => {
     const years = new Set<number>();
     
@@ -326,7 +314,6 @@ export const FinanceProvider: React.FC<{ children: React.ReactNode }> = ({ child
         toggleExpensePaid: (id, paid) => toggleExpensePaidMutation.mutate({ id, paid }),
         addIncome: (income) => addIncomeMutation.mutate(income),
         updateIncome: (income) => updateIncomeMutation.mutate(income),
-        deleteIncome: (id) => deleteIncomeMutation.mutate(id),
         getCategoryById: (id) => categories.find(c => c.id === id),
         getExpensesByMonth,
         getIncomesByMonth,

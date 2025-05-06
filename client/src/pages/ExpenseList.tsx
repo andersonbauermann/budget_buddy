@@ -1,5 +1,3 @@
-
-import React, { useState } from "react";
 import { useFinance } from "../context/FinanceContext";
 import YearlyExpenseTable from "../components/expenses/YearlyExpenseTable";
 
@@ -8,7 +6,7 @@ const ExpenseList = () => {
 
   const currentYearOptions = [];
   const currentFullYear = new Date().getFullYear();
-  for (let i = currentFullYear - 5; i <= currentFullYear + 1; i++) {
+  for (let i = currentFullYear - 5; i <= currentFullYear + 2; i++) {
     currentYearOptions.push(i);
   }
 

@@ -27,8 +27,8 @@ const App = () => (
               <Route path="categories" element={<Categories />} />
               <Route path="expenses" element={<Expenses />} />
               <Route path="income" element={<Income />} />
-              {/* <Route path="expense-list" element={<ExpenseList />} />
-              <Route path="*" element={<NotFound />} /> */}
+              <Route path="expense-list" element={<ExpenseList />} />
+              {/* <Route path="*" element={<NotFound />} /> */}
             </Route>
           </Routes>
         </FinanceProvider>
