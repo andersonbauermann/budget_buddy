@@ -72,9 +72,9 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ category, onClose }) => {
             <input
               type="radio"
               className="form-radio"
-              value={CategoryType.Revenue}
-              checked={type === CategoryType.Revenue}
-              onChange={() => setType(CategoryType.Revenue)}
+              value={CategoryType.Income}
+              checked={type === CategoryType.Income}
+              onChange={() => setType(CategoryType.Income)}
             />
             <span className="ml-2">Receita</span>
           </label>

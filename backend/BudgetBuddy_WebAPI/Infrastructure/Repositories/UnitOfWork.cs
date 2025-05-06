@@ -21,10 +21,9 @@ namespace BudgetBuddy_WebAPI.Infrastructure.Repositories
         public IIncomeRepository IncomeRepository
             => _incomeRepository ??= new IncomeRepository(_context);
 
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
-            _context.SaveChangesAsync();
-            return Task.CompletedTask;
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()

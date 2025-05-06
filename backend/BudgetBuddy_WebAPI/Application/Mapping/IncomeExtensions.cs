@@ -5,7 +5,7 @@ namespace BudgetBuddy_WebAPI.Application.Mapping;
 
 public static class IncomeExtensions
 {
-    public static IncomeDto ToDto(this Income income)
+    public static IncomeDto MapToDto(this Income income)
     {
         return new IncomeDto
         {
@@ -14,7 +14,22 @@ public static class IncomeExtensions
             Description = income.Description,
             Value = income.Value,
             Date = income.Date,
-            Received = income.Received
+            Received = income.Received,
+            IsActive = income.IsActive
+        };
+    }
+
+    public static Income MapToEntity(this IncomeDto dto)
+    {
+        return new Income
+        {
+            Id = dto.Id ?? default,
+            CategoryId = dto.CategoryId,
+            Description = dto.Description,
+            Value = dto.Value,
+            Date = dto.Date,
+            Received = dto.Received,
+            IsActive = dto.IsActive
         };
     }
 }

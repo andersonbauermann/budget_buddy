@@ -36,7 +36,10 @@ const Income = () => {
 
   const handleDeleteIncome = (id: number) => {
     if (window.confirm("Tem certeza que deseja excluir esta receita?")) {
-      deleteIncome(id);
+      const income = incomes.find(inc => inc.id === id);
+      if (income) {
+        updateIncome({ ...income, isActive: false });
+      }
       toast.success("Receita excluída com sucesso");
     }
   };

@@ -25,6 +25,10 @@ public class IncomeMap : IEntityTypeConfiguration<Income>
         builder.Property(e => e.Received)
             .HasDefaultValue(false);
 
+        builder.Property(e => e.IsActive)
+            .IsRequired()
+            .HasDefaultValue(true);
+
         builder.HasOne(e => e.Category)
             .WithMany()
             .HasForeignKey(e => e.CategoryId)

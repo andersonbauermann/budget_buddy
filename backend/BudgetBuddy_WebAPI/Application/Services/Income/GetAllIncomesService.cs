@@ -12,9 +12,9 @@ public class GetAllIncomesService(IUnitOfWork uof)
     public async override Task<Result<IEnumerable<IncomeDto>>> Execute(Input input)
     {
         var incomes = await _unitOfWork.IncomeRepository
-           .GetAllAsync() ?? [];
+           .GetAllAsync(onlyActives: true) ?? [];
 
-        return Result.Ok(incomes.Select(income => income.ToDto()));
+        return Result.Ok(incomes.Select(income => income.MapToDto()));
     }
 
     public record Input();

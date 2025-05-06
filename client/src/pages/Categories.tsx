@@ -55,11 +55,11 @@ const Categories = () => {
         </button>
         <button
           className={`px-4 py-2 font-medium ${
-            activeTab === CategoryType.Revenue
+            activeTab === CategoryType.Income
               ? "border-b-2 border-finance-primary text-finance-primary"
               : "text-gray-500"
           }`}
-          onClick={() => setActiveTab(CategoryType.Revenue)}
+          onClick={() => setActiveTab(CategoryType.Income)}
         >
           Receitas
         </button>

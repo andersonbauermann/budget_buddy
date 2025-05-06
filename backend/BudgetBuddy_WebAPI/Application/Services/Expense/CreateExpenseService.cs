@@ -33,13 +33,13 @@ public class CreateExpenseService(IUnitOfWork uow)
 
             for (var i = 0; i <= input.Installments; i++)
             {
-                var expenseIntallment = new ExpenseInstallment
+                var expenseInstallment = new ExpenseInstallment
                 {
-                    ExpenseId = expense.Id,
+                    ExpenseId = expenseCreated.Id,
                     Date = i == 0 ? input.Date : input.Date.AddMonths(i),
                 };
-               
-                _unitOfWork.ExpenseInstallmentRepository.Create(expenseIntallment);
+
+                _unitOfWork.ExpenseInstallmentRepository.Create(expenseInstallment);
             }
 
             await _unitOfWork.CommitAsync();

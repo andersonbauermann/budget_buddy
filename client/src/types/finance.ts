@@ -29,6 +29,7 @@ export interface Income {
   date: string;
   categoryId: number;
   received: boolean;
+  isActive: boolean;
 }
 
 export interface MonthlyData {

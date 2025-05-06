@@ -11,6 +11,6 @@ namespace BudgetBuddy_WebAPI.Domain.Entities
         public bool IsActive { get; set; } = true;
 
         [JsonIgnore]
-        public Expense Expense { get; set; } = new Expense();
+        public Expense? Expense { get; set; }
     }
 }

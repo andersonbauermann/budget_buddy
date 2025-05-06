@@ -52,6 +52,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ income, onClose }) => {
       date: new Date(date).toISOString(),
       categoryId,
       received,
+      isActive: true
     };
     
     if (income) {
