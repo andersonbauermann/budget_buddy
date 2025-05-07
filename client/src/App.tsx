@@ -23,12 +23,12 @@ const App = () => (
           <Sonner />
           <Routes>
             <Route path="/" element={<MainLayout />}>
-              {/* <Route index element={<Dashboard />} /> */}
+              <Route index element={<Dashboard />} />
               <Route path="categories" element={<Categories />} />
               <Route path="expenses" element={<Expenses />} />
               <Route path="income" element={<Income />} />
               <Route path="expense-list" element={<ExpenseList />} />
-              {/* <Route path="*" element={<NotFound />} /> */}
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </FinanceProvider>

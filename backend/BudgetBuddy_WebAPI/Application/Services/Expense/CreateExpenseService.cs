@@ -31,7 +31,7 @@ public class CreateExpenseService(IUnitOfWork uow)
             var expenseCreated = _unitOfWork.ExpenseRepository.Create(expense);
             await _unitOfWork.CommitAsync();
 
-            for (var i = 0; i <= input.Installments; i++)
+            for (var i = 0; i < input.Installments; i++)
             {
                 var expenseInstallment = new ExpenseInstallment
                 {

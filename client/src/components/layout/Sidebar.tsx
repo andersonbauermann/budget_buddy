@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Home, Wallet, PieChart, PlusCircle, ListChecks } from "lucide-react";
 
 const menuItems = [
-  // { path: "/", label: "Dashboard", icon: <Home className="h-5 w-5" /> },
+  { path: "/", label: "Dashboard", icon: <Home className="h-5 w-5" /> },
   { path: "/categories", label: "Categorias", icon: <PieChart className="h-5 w-5" /> },
   { path: "/expenses", label: "Despesas", icon: <Wallet className="h-5 w-5" /> },
   { path: "/income", label: "Receitas", icon: <PlusCircle className="h-5 w-5" /> },

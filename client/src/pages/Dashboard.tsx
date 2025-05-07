@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React from "react";
 import { useFinance } from "../context/FinanceContext";
 import CardStat from "../components/common/CardStat";
 import BalanceChart from "../components/dashboard/BalanceChart";
@@ -10,13 +10,12 @@ const Dashboard = () => {
   
   const currentYearData = yearlyData.find(data => data.year === currentYear);
   
-  // Calcular o percentual de variação em relação ao mês anterior
   const calculateMonthlyChange = (data: any) => {
     if (!data || !data.monthlyData) return null;
     
     const currentMonth = new Date().getMonth();
     
-    if (currentMonth === 0) return null; // Janeiro não tem mês anterior
+    if (currentMonth === 0) return null;
     
     const currentMonthData = data.monthlyData[currentMonth];
     const previousMonthData = data.monthlyData[currentMonth - 1];
@@ -44,7 +43,6 @@ const Dashboard = () => {
   
   const monthlyChange = currentYearData ? calculateMonthlyChange(currentYearData) : null;
   
-  // Dados para os gráficos de categorias
   const expenseCategorySummary = getCategorySummary("expense", currentYear);
   const incomeCategorySummary = getCategorySummary("income", currentYear);
 
